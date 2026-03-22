@@ -47,6 +47,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException ex) {
+        ApiResponse<Object> apiResponse = ApiResponse.builder()
+                .status(HttpStatus.FORBIDDEN.value())
+                .data(null)
+                .message("Access denied: " + ex.getMessage())
+                .build();
+        return new ResponseEntity<>(apiResponse, HttpStatus.FORBIDDEN);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGenericException(Exception ex) {
         ApiResponse<Object> apiResponse = ApiResponse.builder()
@@ -56,4 +66,6 @@ public class GlobalExceptionHandler {
                 .build();
         return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
 }
