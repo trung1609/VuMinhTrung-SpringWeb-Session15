@@ -1,5 +1,6 @@
 package com.example.session15.service.impl;
 
+import com.example.session15.dto.request.ChangeRole;
 import com.example.session15.dto.request.FormLogin;
 import com.example.session15.dto.request.FormRegister;
 import com.example.session15.dto.response.JwtResponse;
@@ -79,7 +80,7 @@ public class AuthServiceImpl implements AuthService {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .expire(new Date(new Date().getTime() + expire))
-                .users(userRepository.findByEmail(formLogin.getEmail()).orElseThrow(() -> new ResourceNotFoundException("User not found")))
+                .users(userRepository.findByEmail(formLogin.getEmail()).orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + formLogin.getEmail())))
                 .build();
     }
 }

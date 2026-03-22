@@ -1,5 +1,6 @@
 package com.example.session15.controller;
 
+import com.example.session15.dto.request.ChangeRole;
 import com.example.session15.dto.request.FormLogin;
 import com.example.session15.dto.request.FormRegister;
 import com.example.session15.dto.response.JwtResponse;
@@ -10,10 +11,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -30,5 +30,6 @@ public class AuthController {
     public ResponseEntity<JwtResponse> login(@Valid @RequestBody FormLogin formLogin) throws ResourceConflictException, ResourceNotFoundException {
         return new ResponseEntity<>(authService.login(formLogin), HttpStatus.OK);
     }
+
 
 }
